@@ -48,6 +48,9 @@ function game() {
         computerSelection = getComputerChoice();
         console.log(checkWinner(playerSelection, computerSelection));
         if (tiedRound === true) {i--}
+        if (playerScore === 3 || computerScore === 3) {
+            break;
+        }
         console.log(`Player: ${playerScore} vs Computer: ${computerScore}`)
     }
 
@@ -59,9 +62,7 @@ function game() {
         console.log(`You Loose the Game!!! Final Score: Player: ${playerScore} vs Computer: ${computerScore}`);
     }
 
-    else {
-        console.log(`Tied Game! Play Again! Final Score: Player: ${playerScore} vs Computer: ${computerScore} `)
-    }
+   
 } 
 
 console.log(game());
