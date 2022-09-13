@@ -1,3 +1,18 @@
+const buttons = document.getElementsByClassName('button');
+
+for (let button of buttons) {
+    button.addEventListener('mouseover', () => button.className = 'button-interact-up');
+    button.addEventListener('mouseover', () => button.id = `${button.id}-interact`);
+    button.addEventListener('mouseleave', () => button.className = 'button');
+    button.addEventListener('mouseleave', () => button.id = `${button.id}`.slice(0, -9));
+    button.addEventListener('mousedown', () => button.className = 'button-interact-down');
+}
+
+
+
+
+// this is the functional code
+
 let choices = ['rock', 'paper', 'scissors']
 let computerSelection
 
@@ -66,4 +81,3 @@ function game() {
 } 
 
 console.log(game());
-
