@@ -8,8 +8,22 @@ for (let button of buttons) {
     button.addEventListener('mousedown', () => button.className = 'button-interact-down');
 }
 
+const popup = document.getElementById('popup-cont');
 
+function showPopup() {
+    popup.style.display = 'block';
+};
 
+function hidePopup() {
+    popup.style.display = 'none';
+};
+
+window.addEventListener('load', () => setTimeout(showPopup, 1500));
+
+const popupButtons = document.querySelectorAll('#buttons-container');
+for (let buttons of popupButtons) {
+    buttons.addEventListener('click', hidePopup);
+};
 
 // this is the functional code
 
