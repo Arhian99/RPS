@@ -1,3 +1,4 @@
+// Rock, Paper Scissors buttons and animations
 const buttons = document.getElementsByClassName('button');
 
 for (let button of buttons) {
@@ -6,8 +7,9 @@ for (let button of buttons) {
     button.addEventListener('mouseleave', () => button.className = 'button');
     button.addEventListener('mouseleave', () => button.id = `${button.id}`.slice(0, -9));
     button.addEventListener('mousedown', () => button.className = 'button-interact-down');
-}
+};
 
+//Pop Up Code
 const popup = document.getElementById('popup-cont');
 
 function showPopup() {
@@ -21,21 +23,45 @@ function hidePopup() {
 window.addEventListener('load', () => setTimeout(showPopup, 1500));
 
 const popupButtons = document.querySelectorAll('#buttons-container');
-for (let buttons of popupButtons) {
-    buttons.addEventListener('click', hidePopup);
+for (let popupButton of popupButtons) {
+    popupButton.addEventListener('click', hidePopup);
 };
+
+
 
 // this is the functional code
 
 let choices = ['rock', 'paper', 'scissors']
-let computerSelection
+let computerSelection;
 
 function getComputerChoice() {
     computerSelection = choices[Math.floor(Math.random() * choices.length)];
-    return computerSelection;
-}
+};
 
-// must implement a way to choose/ decide playerSelection
+//Plugging in RPS buttons to Player Selection
+const rock = document.getElementById('rock');
+rock.addEventListener('click', () => {
+    playerSelection = 'rock';
+    getComputerChoice();
+    checkWinner(playerSelection, computerSelection)}
+);
+
+const paper = document.getElementById('paper');
+paper.addEventListener('click', () => {
+    playerSelection = 'paper';
+    getComputerChoice();
+    checkWinner(playerSelection, computerSelection)}
+);
+
+const scissors = document.getElementById('scissors');
+scissors.addEventListener('click', () => {
+    playerSelection = 'scissors';
+    getComputerChoice();
+    checkWinner(playerSelection, computerSelection)}
+);
+
+
+
 
 function caps2(string) {
     let letter1 = string.charAt(0);
@@ -45,33 +71,34 @@ function caps2(string) {
     return letter1 + rest;
 } // this function takes the first letter of a string and capitalizes it, used to capitalize the returned strings
 
+
 let playerScore = 0;
 let computerScore = 0;
 //let playerSelection = prompt('Rock, Paper, Scissors?');
 let tiedRound;
 
 function checkWinner(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
+    //playerSelection = playerSelection.toLowerCase();
 
     if (playerSelection === computerSelection) {
         tiedRound = true;
-        return 'Tie!, Play Again!';
+        alert('Tie!, Play Again!');
     }
 
     else if (playerSelection === 'rock' && computerSelection === 'paper' || playerSelection === 'paper' && computerSelection === 'scissors' || playerSelection === 'scissors' && computerSelection === 'rock') {
         computerScore += 1;
         tiedRound = false;
-        return `You Loose this Round! ${caps2(computerSelection)} beats ${caps2(playerSelection)}`;
+        alert(`You Loose this Round! ${caps2(computerSelection)} beats ${caps2(playerSelection)}`);
     }
 
     else if (playerSelection === 'rock' && computerSelection === 'scissors' || playerSelection === 'paper' && computerSelection === 'rock' || playerSelection === 'scissors' && computerSelection === 'paper') {
         playerScore += 1;
         tiedRound = false;
-        return `You Win this Round! ${caps2(playerSelection)} beats ${caps2(computerSelection)}`;
+        alert(`You Win this Round! ${caps2(playerSelection)} beats ${caps2(computerSelection)}`);
     }
-}
+};
 
-
+/*
 function game() {
     for (let i=0; i < 5; i++) {
         computerSelection = getComputerChoice();
@@ -90,8 +117,6 @@ function game() {
     else if (computerScore > playerScore) {
         console.log(`You Loose the Game!!! Final Score: Player: ${playerScore} vs Computer: ${computerScore}`);
     }
-
-   
-} 
+} */
 
 console.log(game());
