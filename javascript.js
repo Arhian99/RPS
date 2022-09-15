@@ -20,47 +20,73 @@ function hidePopup() {
     popup.style.display = 'none';
 };
 
-window.addEventListener('load', () => setTimeout(showPopup, 1500));
+window.addEventListener('load', () => setTimeout(showPopup, 1000));
 
 const popupButtons = document.querySelectorAll('#buttons-container');
 for (let popupButton of popupButtons) {
     popupButton.addEventListener('click', hidePopup);
 };
 
+const ok = document.getElementById('ok');
+ok.addEventListener('click', () => document.getElementById('popup-winner-cont').style.display = 'none');
 
 
 // this is the functional code
 
 let choices = ['rock', 'paper', 'scissors']
 let computerSelection;
+let playerSelection;
+let playerScore = 0;
+let computerScore = 0;
+let tiedRound;
+let userWins;
+let playOne = true;
+const popupWinner = document.getElementById('popup-winner-cont');
+
+
 
 function getComputerChoice() {
     computerSelection = choices[Math.floor(Math.random() * choices.length)];
 };
 
-//Plugging in RPS buttons to Player Selection
+//Plugging in RPS buttons to Player Selection and 1 Round Games
+const oneRound = document.getElementById('oneRound');
+const fiveRounds = document.getElementById('fiveRounds');
+
+oneRound.addEventListener('click', () => playOne = true);
+fiveRounds.addEventListener('click', () => playOne = false);
+
+
 const rock = document.getElementById('rock');
-rock.addEventListener('click', () => {
-    playerSelection = 'rock';
-    getComputerChoice();
-    checkWinner(playerSelection, computerSelection)}
-);
-
 const paper = document.getElementById('paper');
-paper.addEventListener('click', () => {
-    playerSelection = 'paper';
-    getComputerChoice();
-    checkWinner(playerSelection, computerSelection)}
-);
-
 const scissors = document.getElementById('scissors');
-scissors.addEventListener('click', () => {
-    playerSelection = 'scissors';
-    getComputerChoice();
-    checkWinner(playerSelection, computerSelection)}
-);
+
+window.addEventListener('load', rpsPressed);
+
+function rpsPressed() {
+    rock.addEventListener('click', () => {
+        playerSelection = 'rock';
+        getComputerChoice();
+        checkWinner(playerSelection, computerSelection);}
+    );
+    
+    paper.addEventListener('click', () => {
+        playerSelection = 'paper';
+        getComputerChoice();
+        checkWinner(playerSelection, computerSelection);}
+    );
+
+    scissors.addEventListener('click', () => {
+        playerSelection = 'scissors';
+        getComputerChoice();
+        checkWinner(playerSelection, computerSelection);}
+    );
+};
 
 
+//checking whether the reset score checkbox is checked and setting the value of resetScore variable t/f accordingly
+const scoreCheckbox = document.getElementsByClassName('popup-end').getElementsByTagName('input[name=scoreCheckbox]');
+scoreCheckbox.addEventListener('change', (event) => {if (event.target.checked) {let resetScore = true} else {resetScore = false}})
 
 
 function caps2(string) {
@@ -72,29 +98,48 @@ function caps2(string) {
 } // this function takes the first letter of a string and capitalizes it, used to capitalize the returned strings
 
 
-let playerScore = 0;
-let computerScore = 0;
-//let playerSelection = prompt('Rock, Paper, Scissors?');
-let tiedRound;
+
 
 function checkWinner(playerSelection, computerSelection) {
-    //playerSelection = playerSelection.toLowerCase();
 
     if (playerSelection === computerSelection) {
         tiedRound = true;
-        alert('Tie!, Play Again!');
+        userWins = false;
+        alertWinner();        
     }
 
     else if (playerSelection === 'rock' && computerSelection === 'paper' || playerSelection === 'paper' && computerSelection === 'scissors' || playerSelection === 'scissors' && computerSelection === 'rock') {
         computerScore += 1;
         tiedRound = false;
-        alert(`You Loose this Round! ${caps2(computerSelection)} beats ${caps2(playerSelection)}`);
+        userWins = false;
+        alertWinner();        
     }
 
     else if (playerSelection === 'rock' && computerSelection === 'scissors' || playerSelection === 'paper' && computerSelection === 'rock' || playerSelection === 'scissors' && computerSelection === 'paper') {
         playerScore += 1;
         tiedRound = false;
-        alert(`You Win this Round! ${caps2(playerSelection)} beats ${caps2(computerSelection)}`);
+        userWins = true;
+        alertWinner();        
+    }
+};
+
+function alertWinner() {
+    if (tiedRound === true && userWins === false) {
+        popupWinner.style.display = 'block';
+        document.getElementById('winner').innerHTML = 'Tie!';
+        document.getElementById('outcome').innerHTML = 'Play Again!';
+    }
+
+    else if (userWins == false && tiedRound === false) {
+        popupWinner.style.display = 'block';
+        document.getElementById('winner').innerHTML = 'You Loose this Round :(';
+        document.getElementById('outcome').innerHTML = `${caps2(computerSelection)} beats ${caps2(playerSelection)}`;
+    }
+
+    else if (userWins == true && tiedRound === false) {
+        popupWinner.style.display = 'block';
+        document.getElementById('winner').innerHTML = 'You Win this Round!!!';
+        document.getElementById('outcome').innerHTML = `${caps2(playerSelection)} beats ${caps2(computerSelection)}`;
     }
 };
 
@@ -119,4 +164,3 @@ function game() {
     }
 } */
 
-console.log(game());
