@@ -1,4 +1,5 @@
-// Rock, Paper Scissors buttons and animations
+// Animations/ Style code
+// RPS button animations
 const buttons = document.getElementsByClassName('button');
 
 for (let button of buttons) {
@@ -9,7 +10,7 @@ for (let button of buttons) {
     button.addEventListener('mousedown', () => button.className = 'button-interact-down');
 };
 
-//Pop Up Code
+//Start popup banner
 const popup = document.getElementById('popup-cont');
 
 function showPopup() {
@@ -27,78 +28,33 @@ for (let popupButton of popupButtons) {
     popupButton.addEventListener('click', hidePopup);
 };
 
+// Winner announcement popup
+const popupWinner = document.getElementById('popup-winner-cont');
 const ok = document.getElementById('ok');
 ok.addEventListener('click', () => document.getElementById('popup-winner-cont').style.display = 'none');
 
 
 // this is the functional code
-
+//variable initializations
 let choices = ['rock', 'paper', 'scissors']
 let computerSelection;
 let playerSelection;
 let playerScore = 0;
 let computerScore = 0;
+document.getElementById('userScore').innerText = `${playerScore}`; // plugs in player score to scoreboard
+document.getElementById('compScore').innerText = `${computerScore}`; //plugs in player score to scoreboard
 let tiedRound;
 let userWins;
 let playOne = true;
-const popupWinner = document.getElementById('popup-winner-cont');
 
-
-
-function getComputerChoice() {
-    computerSelection = choices[Math.floor(Math.random() * choices.length)];
-};
-
-//Plugging in RPS buttons to Player Selection and 1 Round Games
-const oneRound = document.getElementById('oneRound');
-const fiveRounds = document.getElementById('fiveRounds');
-
-oneRound.addEventListener('click', () => playOne = true);
-fiveRounds.addEventListener('click', () => playOne = false);
-
-
+// Game engine
 const rock = document.getElementById('rock');
 const paper = document.getElementById('paper');
 const scissors = document.getElementById('scissors');
 
-window.addEventListener('load', rpsPressed);
-
-function rpsPressed() {
-    rock.addEventListener('click', () => {
-        playerSelection = 'rock';
-        getComputerChoice();
-        checkWinner(playerSelection, computerSelection);}
-    );
-    
-    paper.addEventListener('click', () => {
-        playerSelection = 'paper';
-        getComputerChoice();
-        checkWinner(playerSelection, computerSelection);}
-    );
-
-    scissors.addEventListener('click', () => {
-        playerSelection = 'scissors';
-        getComputerChoice();
-        checkWinner(playerSelection, computerSelection);}
-    );
+function getComputerChoice() {
+    computerSelection = choices[Math.floor(Math.random() * choices.length)];
 };
-
-
-//checking whether the reset score checkbox is checked and setting the value of resetScore variable t/f accordingly
-const scoreCheckbox = document.getElementsByClassName('popup-end').getElementsByTagName('input[name=scoreCheckbox]');
-scoreCheckbox.addEventListener('change', (event) => {if (event.target.checked) {let resetScore = true} else {resetScore = false}})
-
-
-function caps2(string) {
-    let letter1 = string.charAt(0);
-    letter1 = letter1.toUpperCase();
-    let rest = string.slice(1, string.length);
-    rest = rest.toLowerCase();
-    return letter1 + rest;
-} // this function takes the first letter of a string and capitalizes it, used to capitalize the returned strings
-
-
-
 
 function checkWinner(playerSelection, computerSelection) {
 
@@ -121,6 +77,9 @@ function checkWinner(playerSelection, computerSelection) {
         userWins = true;
         alertWinner();        
     }
+
+    document.getElementById('userScore').innerText = `${playerScore}`;
+    document.getElementById('compScore').innerText = `${computerScore}`;
 };
 
 function alertWinner() {
@@ -142,6 +101,56 @@ function alertWinner() {
         document.getElementById('outcome').innerHTML = `${caps2(playerSelection)} beats ${caps2(computerSelection)}`;
     }
 };
+
+function rpsPressed() {
+    rock.addEventListener('click', () => {
+        playerSelection = 'rock';
+        getComputerChoice();
+        checkWinner(playerSelection, computerSelection);}
+    );
+    
+    paper.addEventListener('click', () => {
+        playerSelection = 'paper';
+        getComputerChoice();
+        checkWinner(playerSelection, computerSelection);}
+    );
+
+    scissors.addEventListener('click', () => {
+        playerSelection = 'scissors';
+        getComputerChoice();
+        checkWinner(playerSelection, computerSelection);}
+    );
+};
+
+function caps2(string) {
+    let letter1 = string.charAt(0);
+    letter1 = letter1.toUpperCase();
+    let rest = string.slice(1, string.length);
+    rest = rest.toLowerCase();
+    return letter1 + rest;
+}; // this function takes the first letter of a string and capitalizes it, used to capitalize the returned strings
+
+window.addEventListener('load', rpsPressed);
+
+
+//Picking 1 Round vs 5 Round Games (not done)
+const oneRound = document.getElementById('oneRound');
+const fiveRounds = document.getElementById('fiveRounds');
+
+oneRound.addEventListener('click', () => playOne = true);
+fiveRounds.addEventListener('click', () => playOne = false);
+
+
+
+
+
+
+
+
+//checking whether the reset score checkbox is checked and setting the value of resetScore variable t/f accordingly (not done)
+const scoreCheckbox = document.getElementsByClassName('popup-end').getElementsByTagName('input[name=scoreCheckbox]');
+scoreCheckbox.addEventListener('change', (event) => {if (event.target.checked) {let resetScore = true} else {resetScore = false}})
+
 
 /*
 function game() {
