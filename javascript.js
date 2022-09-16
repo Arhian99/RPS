@@ -1,3 +1,23 @@
+//variable initializations (part of functional code)
+let choices = ['rock', 'paper', 'scissors']
+let computerSelection;
+let playerSelection;
+let playerScore = 0;
+let computerScore = 0;
+document.getElementById('userScore').innerText = `${playerScore}`; // plugs in player score to scoreboard
+document.getElementById('compScore').innerText = `${computerScore}`; //plugs in player score to scoreboard
+let tiedRound;
+let userWins;
+let playOne;
+
+//Picking 1 Round vs 5 Round Games (not done)
+const oneRound = document.getElementById('oneRound');
+const fiveRounds = document.getElementById('fiveRounds');
+
+oneRound.addEventListener('click', () => playOne = true);
+fiveRounds.addEventListener('click', () => playOne = false);
+
+
 // Animations/ Style code
 // RPS button animations
 const buttons = document.getElementsByClassName('button');
@@ -31,21 +51,35 @@ for (let popupButton of popupButtons) {
 // Winner announcement popup
 const popupWinner = document.getElementById('popup-winner-cont');
 const ok = document.getElementById('ok');
-ok.addEventListener('click', () => document.getElementById('popup-winner-cont').style.display = 'none');
+function oneVfive() {
+    if (playOne === true) {    
+        document.getElementById('popup-winner-cont').style.display = 'none';
+        document.getElementById('popup-end-cont').style.display = 'block'
+    }
+
+    else if (playOne === false) {
+        document.getElementById('popup-winner-cont').style.display = 'none';
+    }
+};
+
+ok.addEventListener('click', oneVfive);
+
+// end 'Play Again' Popup
+const oneRoundPA = document.getElementById('oneRound-pa');
+const fiveRoundsPA = document.getElementById('fiveRounds-pa');
+
+oneRoundPA.addEventListener('click', () => {playOne = true; document.getElementById('popup-end-cont').style.display = 'none'});
+fiveRoundsPA.addEventListener('click', () => {playOne = false; document.getElementById('popup-end-cont').style.display = 'none'});
+
+
+
+//if (playOne == true) {ok.addEventListener('click', () => {document.getElementById('popup-winner-cont').style.display = 'none'; document.getElementById('popup-end-cont').style.display = 'block'});}
+// the line of code above brings up the Play again popup banner upon closing the winner announcement banner in ONE round games
+//the line of code above closes the winner announcement popup banner after each round on FIVE round games only // if (playOne == false) {ok.addEventListener('click', () => {document.getElementById('popup-winner-cont').style.display = 'none'})};
 
 
 // this is the functional code
-//variable initializations
-let choices = ['rock', 'paper', 'scissors']
-let computerSelection;
-let playerSelection;
-let playerScore = 0;
-let computerScore = 0;
-document.getElementById('userScore').innerText = `${playerScore}`; // plugs in player score to scoreboard
-document.getElementById('compScore').innerText = `${computerScore}`; //plugs in player score to scoreboard
-let tiedRound;
-let userWins;
-let playOne = true;
+
 
 // Game engine
 const rock = document.getElementById('rock');
@@ -133,23 +167,9 @@ function caps2(string) {
 window.addEventListener('load', rpsPressed);
 
 
-//Picking 1 Round vs 5 Round Games (not done)
-const oneRound = document.getElementById('oneRound');
-const fiveRounds = document.getElementById('fiveRounds');
-
-oneRound.addEventListener('click', () => playOne = true);
-fiveRounds.addEventListener('click', () => playOne = false);
-
-
-
-
-
-
-
-
 //checking whether the reset score checkbox is checked and setting the value of resetScore variable t/f accordingly (not done)
-const scoreCheckbox = document.getElementsByClassName('popup-end').getElementsByTagName('input[name=scoreCheckbox]');
-scoreCheckbox.addEventListener('change', (event) => {if (event.target.checked) {let resetScore = true} else {resetScore = false}})
+const scoreReset = document.getElementById('scoreReset');
+scoreReset.addEventListener('change', (event) => {if (event.target.checked) {playerScore = 0; computerScore = 0; document.getElementById('userScore').innerText = `${playerScore}`; document.getElementById('compScore').innerText = `${computerScore}`;}})
 
 
 /*
