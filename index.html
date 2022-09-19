@@ -1,14 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="javascript.js"></script>
-    <title>RPS: Rock, Paper, Scissors</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="javascript.js" defer></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nabla&family=Neonderthaw&family=Varela+Round&display=swap" rel="stylesheet">
+        <title>RPS: Rock, Paper, Scissors</title>
+    </head>
 
-<body>
-    
-</body>
+    <body>
+        <div id="popup-cont">
+        <div class="popup-start"> 
+            <h1>Welcome To RPS!</h1>
+            <h4>Choose your game modality. <br> Then, pick your weapon to begin the game.</h4>
+            <div id="buttons-container">
+                <button id="oneRound">1 Round</button>                    
+                <button id="fiveRounds">5 Rounds</button>
+            </div>
+        </div>
+        </div>
+
+        <div id="popup-end-cont">
+        <div class="popup-end">
+            <h1>Play Again?</h1>
+            <h4>Reset Score?</h4>
+            <input type="checkbox" name="scoreCheckbox" id="scoreReset">
+            <div id="buttons-container">
+                <button id="oneRound-pa">1 Round</button>                    
+                <button id="fiveRounds-pa">5 Rounds</button>
+            </div>
+        </div>
+        </div>
+
+        <div id="popup-winner-cont">
+            <div class="popup-winner">
+                <h1 id="winner">error</h1>
+                <h3 id="outcome">error</h3>
+                <button id="ok">OK</button>
+            </div>
+        </div>
+
+        <div id="popup-gamewinner-cont">
+            <div class="popup-winner" id="popup-gamewinner">
+                <h1 id="game-winner">error</h1>
+                <h3 id="game-outcome">error</h3>
+                <button id="gamewinner-ok">OK</button>
+            </div>
+        </div>
+
+        <div id="container">
+            <div id="screen">
+                <div id="tittle-container">
+                    <h2 id="rock-title">Rock</h2> 
+                    <br>
+                    <h2 id="paper-title">Paper</h2> 
+                    <br>
+                    <h2 id="scissors-title">Scissors</h2>
+                </div>
+                
+                <div id="score-container">
+                    <div class="score" id="score-your">
+                        <h4>Your Score</h4>
+                        <p id="userScore">error</p>
+                    </div>
+                    <div class="score" id="score-comp">
+                        <h4>Computer Score</h4>
+                        <p id="compScore">error</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="buttons-container">
+                <img id="rock" class="button" src="img/rock.png">
+                <img id="paper" class="button" src="img/paper.png">
+                <img id="scissors" class="button" src="img/scissors.png">
+            </div>
+        </div>
+    </body>
 </html>
