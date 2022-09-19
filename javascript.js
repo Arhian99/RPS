@@ -14,8 +14,9 @@ let playOne;
 const oneRound = document.getElementById('oneRound');
 const fiveRounds = document.getElementById('fiveRounds');
 
-oneRound.addEventListener('click', () => playOne = true);
-fiveRounds.addEventListener('click', () => playOne = false);
+oneRound.addEventListener('click', () => {playOne = true});
+fiveRounds.addEventListener('click', () => {playOne = false; playerScore = 0; computerScore = 0;});
+
 
 
 // Animations/ Style code
@@ -46,7 +47,7 @@ window.addEventListener('load', () => setTimeout(showPopup, 1000));
 const popupButtons = document.querySelectorAll('#buttons-container');
 for (let popupButton of popupButtons) {
     popupButton.addEventListener('click', hidePopup);
-};
+}; // adds event listener to the one round and five round buttons at the beginning which closes beginning popup upon click
 
 // Winner announcement popup
 const popupWinner = document.getElementById('popup-winner-cont');
@@ -54,22 +55,47 @@ const ok = document.getElementById('ok');
 function oneVfive() {
     if (playOne === true) {    
         document.getElementById('popup-winner-cont').style.display = 'none';
-        document.getElementById('popup-end-cont').style.display = 'block'
+        document.getElementById('popup-end-cont').style.display = 'block';
     }
 
     else if (playOne === false) {
-        document.getElementById('popup-winner-cont').style.display = 'none';
+        if (playerScore < 3 && computerScore < 3) {
+            document.getElementById('popup-winner-cont').style.display = 'none';
+        }
+
+        else if (playerScore == 3 || computerScore == 3) {
+            document.getElementById('popup-winner-cont').style.display = 'none';
+            document.getElementById('popup-gamewinner-cont').style.display = 'block';
+            // check the winner, display the game winner popup // game winner popup ok button triggers the play again popup
+            if (playerScore > computerScore) {
+                document.getElementById('game-winner').innerHTML = 'You Win the Game !!!';
+                document.getElementById('game-outcome').innerHTML = `Final Score: Computer - ${computerScore} vs Player - ${playerScore}`;
+            }
+
+            else if (computerScore > playerScore) {
+                document.getElementById('game-winner').innerHTML = 'You Loose the Game :(';
+                document.getElementById('game-outcome').innerHTML = `Final Score: Computer - ${computerScore} vs Player - ${playerScore}`;
+            }
+        }
+
     }
 };
 
 ok.addEventListener('click', oneVfive);
+
+//game winner (5 rounds) announcement popup
+const gameWinnerOk = document.getElementById('gamewinner-ok');
+gameWinnerOk.addEventListener('click', () => {
+    document.getElementById('popup-gamewinner-cont').style.display = 'none';
+    document.getElementById('popup-end-cont').style.display = 'block';
+});
 
 // end 'Play Again' Popup
 const oneRoundPA = document.getElementById('oneRound-pa');
 const fiveRoundsPA = document.getElementById('fiveRounds-pa');
 
 oneRoundPA.addEventListener('click', () => {playOne = true; document.getElementById('popup-end-cont').style.display = 'none'});
-fiveRoundsPA.addEventListener('click', () => {playOne = false; document.getElementById('popup-end-cont').style.display = 'none'});
+fiveRoundsPA.addEventListener('click', () => {playOne = false; playerScore = 0; computerScore = 0; document.getElementById('popup-end-cont').style.display = 'none'});
 
 
 
@@ -167,7 +193,9 @@ function caps2(string) {
 window.addEventListener('load', rpsPressed);
 
 
-//checking whether the reset score checkbox is checked and setting the value of resetScore variable t/f accordingly (not done)
+
+
+//score reset feature
 const scoreReset = document.getElementById('scoreReset');
 scoreReset.addEventListener('change', (event) => {if (event.target.checked) {playerScore = 0; computerScore = 0; document.getElementById('userScore').innerText = `${playerScore}`; document.getElementById('compScore').innerText = `${computerScore}`;}})
 

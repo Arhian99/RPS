@@ -354,3 +354,6 @@ body {
     font-family: 'Nabla', cursive;
 }
 
+#popup-gamewinner-cont {
+    display: none;
+}
